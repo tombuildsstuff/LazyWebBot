@@ -15,4 +15,4 @@ _ReSharper.*
 packages/*/*
 .tfignore
 */csx/*
-LazyWebBot.Playground/[Aa]pp.config
+[Aa]pp.config
