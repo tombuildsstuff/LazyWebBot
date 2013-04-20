@@ -2,17 +2,38 @@
 {
     using System;
     using System.Configuration;
-
-    using AutoMapper;
+    using System.Linq;
+    using System.Threading;
 
     using LazyWebBot.Contracts;
 
     using NServiceBus;
 
+    using Raven.Client;
+    using Raven.Client.Document;
+
     using TweetSharp;
+
+    using SearchOptions = TweetSharp.SearchOptions;
 
     public class Program
     {
+        private static IBus Bus
+        {
+            get
+            {
+                return Configure.With().DefaultBuilder().XmlSerializer().MsmqTransport().UnicastBus().SendOnly();
+            }
+        }
+
+        private static IDocumentStore DocumentStore
+        {
+            get
+            {
+                return new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "LazyWebBot.Tweets" };
+            }
+        }
+
         public static void Main(string[] args)
         {
             var consumerKey = ConfigurationManager.AppSettings["consumerKey"];
@@ -21,36 +42,25 @@
             var userTokenSecret = ConfigurationManager.AppSettings["userTokenSecret"];
             var searchTerm = ConfigurationManager.AppSettings["searchTerm"];
 
-            var bus = GetBus();
-
             var service = new TwitterService(consumerKey, consumerSecret);
             service.AuthenticateWith(userAccessToken, userTokenSecret);
             VerifyUser(service);
-            
-            RunSearch(service, searchTerm, bus);
+
+            var documentStore = DocumentStore.Initialize();
+
+            while (true)
+            {
+                RunSearch(service, searchTerm, Bus, documentStore.OpenSession());
+                Thread.Sleep(15000);
+            }
         }
 
-        private static void ConfigureAutoMapper()
+        private static void RunSearch(ITwitterService service, string searchTerm, IBus bus, IDocumentSession documentSession)
         {
-            Mapper.CreateMap<TwitterStatus, Status>()
-                .ForMember(x => x.Content, y => y.ResolveUsing(f => f.Text))
-                .ForMember(x => x.Created, y => y.ResolveUsing(f => f.CreatedDate))
-                .ForMember(x => x.TwitterId, y => y.ResolveUsing(f => f.Id));
-        }
-
-        private static IBus GetBus()
-        {
-            return Configure.With().DefaultBuilder().XmlSerializer().MsmqTransport().UnicastBus().SendOnly();
-        }
-
-        private static void RunSearch(ITwitterService service, string searchTerm, IBus bus)
-        {
-            var results = service.Search(new SearchOptions { Q = searchTerm, Lang = "en", Resulttype = TwitterSearchResultType.Mixed });
+            var options = new SearchOptions { Q = searchTerm, Lang = "en", Resulttype = TwitterSearchResultType.Mixed };
+            var results = service.Search(options);
             foreach (var result in results.Statuses)
             {
-                if (result.InReplyToStatusId.HasValue)
-                    return;
-
                 var tweet = new Status
                 {
                     Id = Guid.NewGuid(),
@@ -60,10 +70,16 @@
                     Content = result.Text,
                     Created = result.CreatedDate
                 };
+
+                if (result.InReplyToStatusId.HasValue || documentSession.Query<Status>().Any(s => s.TwitterId == tweet.TwitterId))
+                {
+                    return;
+                }
+
+                documentSession.Store(tweet);
+                documentSession.SaveChanges();
                 bus.Send(tweet);
             }
-
-            Console.ReadLine();
         }
 
         private static void VerifyUser(ITwitterService service)
