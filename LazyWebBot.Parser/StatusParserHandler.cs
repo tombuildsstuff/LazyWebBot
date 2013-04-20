@@ -22,7 +22,9 @@
             var sanitisedMessage = SanitiseInput(message);
             var terms = TextParser.GetValuableWords(sanitisedMessage);
             var url = SearchService.GetUriForTerm(terms);
-            if (url == null)
+
+            // if we can't find a url and we can't find any relevent details - there's no point in spamming the user..
+            if (url == null && sanitisedMessage == terms)
             {
                 Console.WriteLine("Unable to find a url to match {0}", terms);
                 return;
@@ -33,7 +35,8 @@
                 Id = Guid.NewGuid(),
                 OriginalTweet = message.Content,
                 Created = DateTime.Now,
-                RecommendationUrl = url.ToString(),
+                RecommendationUrl = url != null ? url.ToString() : null,
+                Answer = terms.Length > 100 ? null : terms,
                 TwitterId = message.TwitterId,
                 User = message.User
             });

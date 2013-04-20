@@ -13,7 +13,7 @@
         {
             Configure.Instance.Configurer.ConfigureComponent<ITwitterService>(() =>
             {
-                return new FakeTwitterService();
+                // return new FakeTwitterService();
 
                 var consumerKey = ConfigurationManager.AppSettings["consumerKey"];
                 var consumerSecret = ConfigurationManager.AppSettings["consumerSecret"];

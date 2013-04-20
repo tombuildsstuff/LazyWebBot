@@ -1,0 +1,8 @@
+#lazywebbot
+============
+
+A bot which watches the #lazyweb tag on twitter and tries to answer your questions..
+
+Uses NServiceBus, Wolfram Alpha and OpenCalis
+
+OpenCalais from: http://opencalais.codeplex.com/

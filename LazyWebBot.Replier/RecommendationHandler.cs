@@ -12,8 +12,7 @@
 
         public void Handle(Recommendation message)
         {
-            var status = string.Format("@{0} LazyWebBot does the searching for you! {1}", message.User, message.RecommendationUrl);
-            TwitterService.SendTweet(new SendTweetOptions { InReplyToStatusId = message.TwitterId, Status = status });
+            TwitterService.SendTweet(new SendTweetOptions { InReplyToStatusId = message.TwitterId, Status = message.ToString() });
         }
     }
 }
