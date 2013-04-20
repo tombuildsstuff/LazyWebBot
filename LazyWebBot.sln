@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Replier", "LazyW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Contracts.Replier", "LazyWebBot.Contracts.Replier\LazyWebBot.Contracts.Replier.csproj", "{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Services", "LazyWebBot.Services\LazyWebBot.Services.csproj", "{3F68D741-F707-4254-8303-18FE707D29C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F68D741-F707-4254-8303-18FE707D29C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F68D741-F707-4254-8303-18FE707D29C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F68D741-F707-4254-8303-18FE707D29C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F68D741-F707-4254-8303-18FE707D29C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
