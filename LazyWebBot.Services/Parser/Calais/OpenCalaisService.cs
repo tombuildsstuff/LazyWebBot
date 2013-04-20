@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Web;
     using System.Xml.Linq;
 
     using LazyWebBot.Services.Exceptions;
@@ -13,18 +14,13 @@
 
     public class OpenCalaisService : IOpenCalaisService
     {
-        private readonly string _licenseKey;
-
-        public OpenCalaisService(string licenseKey)
-        {
-            _licenseKey = licenseKey;
-        }
+        public string LicenseKey { get; set; }
 
         public string GetUsefulWords(string content)
         {
             try
             {
-                var xml = GetXml(_licenseKey, content);
+                var xml = GetXml(LicenseKey, content);
                 var instances = ParseToInstances(xml);
 
                 var instanceInfo = instances.Where(o => o as InstanceInfo != null).OrderByDescending(i => ((InstanceInfo)i).Exact.Length).FirstOrDefault() as InstanceInfo;
@@ -39,14 +35,14 @@
         private static IEnumerable<object> ParseToInstances(XContainer xml)
         {
             // warning: hold onto your hats.. this is some gnarly code..
-            const string Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+            var rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
-            var descriptions = xml.Elements(Rdf + "Description");
+            var descriptions = xml.Descendants("rdf" + "Description");
             var instances = new List<object>();
 
             foreach (var d in descriptions)
             {
-                var resource = d.Element(string.Format("{0}type", Rdf)).Attribute(string.Format("{0}resource", Rdf)).Value;
+                var resource = d.Element(string.Format("{0}type", rdf)).Attribute(string.Format("{0}resource", rdf)).Value;
                 var domain = Assembly.Load("OpenCalais");
 
                 var type = (from t in domain.GetTypes()
@@ -63,9 +59,9 @@
                 }
 
                 var instance = Activator.CreateInstance(type);
-                if (d.Attributes(Rdf + "about").Count() == 1)
+                if (d.Attributes(rdf + "about").Count() == 1)
                 {
-                    ((Resource)instance).AboutUri = d.Attribute(Rdf + "about").Value;
+                    ((Resource)instance).AboutUri = d.Attribute(rdf + "about").Value;
                 }
 
                 var props = type.GetProperties().Where(p => p.Name != "AboutUri");
@@ -108,7 +104,7 @@
             const string ParamsXml = "<c:params xmlns:c=\"http://s.opencalais.com/1/pred/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">" +
                                      "<c:processingDirectives c:contentType=\"Text/HTML\" c:outputFormat=\"XML/RDF\" c:calculateRelevanceScore=\"True\" c:enableMetadataType=\"GenericRelations\" />" +
                                      "<c:userDirectives c:allowDistribution=\"False\" c:allowSearch=\"False\" c:submitter=\"MWS\" /></c:params>";
-            var resp = calais.Enlighten(licenseId, content, ParamsXml);
+            var resp = calais.Enlighten(licenseId, HttpUtility.HtmlEncode(content.Replace(".", string.Empty)), ParamsXml);
             return XElement.Parse(resp);
         }
     }

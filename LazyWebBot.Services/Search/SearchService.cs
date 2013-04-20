@@ -18,7 +18,10 @@
 
             var response = (HttpWebResponse)request.GetResponse();
 
-            return response.StatusCode == HttpStatusCode.OK ? response.ResponseUri : null;
+            if (response.StatusCode == HttpStatusCode.OK && !(response.ResponseUri.AbsoluteUri.IndexOf("google.co.uk", StringComparison.InvariantCultureIgnoreCase) > 0))
+                return response.ResponseUri;
+
+            return null;
         }
     }
 }

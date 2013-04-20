@@ -19,12 +19,12 @@
 
         public void Handle(Status message)
         {
-            var valuableWords = TextParser.GetValuableWords(message.Content);
-            var combinedTerms = string.Join(" ", valuableWords);
-            var url = SearchService.GetUriForTerm(combinedTerms);
+            var sanitisedMessage = SanitiseInput(message);
+            var terms = TextParser.GetValuableWords(sanitisedMessage);
+            var url = SearchService.GetUriForTerm(terms);
             if (url == null)
             {
-                Console.WriteLine("Unable to find a url to match {0}", combinedTerms);
+                Console.WriteLine("Unable to find a url to match {0}", terms);
                 return;
             }
 
@@ -37,6 +37,11 @@
                 TwitterId = message.TwitterId,
                 User = message.User
             });
+        }
+
+        private string SanitiseInput(Status status)
+        {
+            return status.Content.Replace(status.SearchTerm, string.Empty).Replace("#", string.Empty).Trim();
         }
     }
 }

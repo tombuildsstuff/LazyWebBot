@@ -10,18 +10,13 @@
 
     public class WolframAlphaService : IWolframAlphaService
     {
-        private readonly string _licenseKey;
-
-        public WolframAlphaService(string licenseKey)
-        {
-            _licenseKey = licenseKey;
-        }
+        public string LicenseKey { get; set; }
 
         public string GetUsefulWords(string question)
         {
             try
             {
-                var client = new WAClient(_licenseKey);
+                var client = new WAClient(LicenseKey);
                 var solution = client.Submit(question);
                 if (question != null)
                 {

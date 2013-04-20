@@ -1,6 +1,7 @@
 ﻿namespace LazyWebBot.Importer
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
     using System.Threading;
@@ -39,6 +40,7 @@
             var userAccessToken = ConfigurationManager.AppSettings["userAccessToken"];
             var userTokenSecret = ConfigurationManager.AppSettings["userTokenSecret"];
             var searchTerm = ConfigurationManager.AppSettings["searchTerm"];
+            var termsToIgnore = ConfigurationManager.AppSettings["termsToIgnore"].Split('|');
 
             var service = new TwitterService(consumerKey, consumerSecret);
             service.AuthenticateWith(userAccessToken, userTokenSecret);
@@ -48,12 +50,12 @@
 
             while (true)
             {
-                RunSearch(service, searchTerm, Bus, documentStore.OpenSession());
+                RunSearch(service, searchTerm, Bus, documentStore.OpenSession(), termsToIgnore);
                 Thread.Sleep(15000);
             }
         }
 
-        private static void RunSearch(ITwitterService service, string searchTerm, IBus bus, IDocumentSession documentSession)
+        private static void RunSearch(ITwitterService service, string searchTerm, IBus bus, IDocumentSession documentSession, IList<string> excludedTerms)
         {
             var options = new TweetSharp.SearchOptions { Q = searchTerm, Lang = "en", Resulttype = TwitterSearchResultType.Mixed };
             var results = service.Search(options);
@@ -70,7 +72,9 @@
                     SearchTerm = searchTerm
                 };
 
-                if (result.InReplyToStatusId.HasValue || documentSession.Query<Status>().Any(s => s.TwitterId == tweet.TwitterId))
+                if (result.InReplyToStatusId.HasValue ||
+                    documentSession.Query<Status>().Any(s => s.TwitterId == tweet.TwitterId) ||
+                    excludedTerms.Any(t => result.Text.IndexOf(t, StringComparison.InvariantCultureIgnoreCase) > 0))
                 {
                     return;
                 }
