@@ -82,6 +82,10 @@
       <Project>{C87C60A7-07DE-4B4C-A393-1853077F4E62}</Project>
       <Name>LazyWebBot.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LazyWebBot.Services\LazyWebBot.Services.csproj">
+      <Project>{3F68D741-F707-4254-8303-18FE707D29C8}</Project>
+      <Name>LazyWebBot.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
