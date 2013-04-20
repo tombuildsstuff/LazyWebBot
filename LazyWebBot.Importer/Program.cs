@@ -66,7 +66,8 @@
                     User = result.User.ScreenName,
                     UserId = result.User.Id,
                     Content = result.Text,
-                    Created = result.CreatedDate
+                    Created = result.CreatedDate,
+                    SearchTerm = searchTerm
                 };
 
                 if (result.InReplyToStatusId.HasValue || documentSession.Query<Status>().Any(s => s.TwitterId == tweet.TwitterId))
