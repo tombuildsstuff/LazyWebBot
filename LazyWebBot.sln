@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Entities", "LazyWebBot.Entities\LazyWebBot.Entities.csproj", "{2BDEC3F7-9E4D-4DCC-B3B4-3BD5F83B69DA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Importer", "LazyWebBot.Importer\LazyWebBot.Importer.csproj", "{93FCF07F-2941-4579-8CFA-AA611E02700C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A39EFFD6-FC3E-455A-BF6C-BDBBDC871621}"
@@ -14,16 +12,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A39EFF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Playground", "LazyWebBot.Playground\LazyWebBot.Playground.csproj", "{A16D318E-ADFA-4269-ACA9-B89388645138}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Contracts", "LazyWebBot.Contracts\LazyWebBot.Contracts.csproj", "{C87C60A7-07DE-4B4C-A393-1853077F4E62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Parser", "LazyWebBot.Parser\LazyWebBot.Parser.csproj", "{9BD2D674-109E-4B37-91D5-5AF0A3508E16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2BDEC3F7-9E4D-4DCC-B3B4-3BD5F83B69DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2BDEC3F7-9E4D-4DCC-B3B4-3BD5F83B69DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2BDEC3F7-9E4D-4DCC-B3B4-3BD5F83B69DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2BDEC3F7-9E4D-4DCC-B3B4-3BD5F83B69DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93FCF07F-2941-4579-8CFA-AA611E02700C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93FCF07F-2941-4579-8CFA-AA611E02700C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93FCF07F-2941-4579-8CFA-AA611E02700C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +30,14 @@ Global
 		{A16D318E-ADFA-4269-ACA9-B89388645138}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A16D318E-ADFA-4269-ACA9-B89388645138}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A16D318E-ADFA-4269-ACA9-B89388645138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87C60A7-07DE-4B4C-A393-1853077F4E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87C60A7-07DE-4B4C-A393-1853077F4E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87C60A7-07DE-4B4C-A393-1853077F4E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87C60A7-07DE-4B4C-A393-1853077F4E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BD2D674-109E-4B37-91D5-5AF0A3508E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BD2D674-109E-4B37-91D5-5AF0A3508E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BD2D674-109E-4B37-91D5-5AF0A3508E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BD2D674-109E-4B37-91D5-5AF0A3508E16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
