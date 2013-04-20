@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LazyWebBot.Contracts.Replier\LazyWebBot.Contracts.Replier.csproj">
+      <Project>{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}</Project>
+      <Name>LazyWebBot.Contracts.Replier</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LazyWebBot.Contracts\LazyWebBot.Contracts.csproj">
       <Project>{C87C60A7-07DE-4B4C-A393-1853077F4E62}</Project>
       <Name>LazyWebBot.Contracts</Name>

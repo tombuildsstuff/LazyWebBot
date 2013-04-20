@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Parser", "LazyWe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Replier", "LazyWebBot.Replier\LazyWebBot.Replier.csproj", "{687A7026-3EF9-4B85-9C5F-E935800C27BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyWebBot.Contracts.Replier", "LazyWebBot.Contracts.Replier\LazyWebBot.Contracts.Replier.csproj", "{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{687A7026-3EF9-4B85-9C5F-E935800C27BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{687A7026-3EF9-4B85-9C5F-E935800C27BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{687A7026-3EF9-4B85-9C5F-E935800C27BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3CA4FF-1CC1-4B96-A436-5E678EFD224A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

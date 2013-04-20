@@ -1,10 +1,10 @@
-﻿namespace LazyWebBot.Contracts
+﻿namespace LazyWebBot.Contracts.Replier
 {
     using System;
 
     using NServiceBus;
 
-    public class Status : IMessage
+    public class Recommendation : IMessage
     {
         public Guid Id { get; set; }
 
@@ -12,11 +12,9 @@
 
         public string User { get; set; }
 
-        public string SearchTerm { get; set; }
+        public string OriginalTweet { get; set; }
 
-        public long UserId { get; set; }
-
-        public string Content { get; set; }
+        public string RecommendationUrl { get; set; }
 
         public DateTime Created { get; set; }
     }
